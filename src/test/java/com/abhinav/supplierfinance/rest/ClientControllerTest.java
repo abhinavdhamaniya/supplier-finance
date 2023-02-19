@@ -1,9 +1,8 @@
-package com.abhinav.supplierfinance.controller;
+package com.abhinav.supplierfinance.rest;
 
 import com.abhinav.supplierfinance.entity.Client;
 import com.abhinav.supplierfinance.entity.ClientLogin;
 import com.abhinav.supplierfinance.exception.ClientAlreadyExistsException;
-import com.abhinav.supplierfinance.rest.ClientController;
 import com.abhinav.supplierfinance.service.ClientService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,10 +1,9 @@
-package com.abhinav.supplierfinance.controller;
+package com.abhinav.supplierfinance.rest;
 
 import com.abhinav.supplierfinance.entity.Invoice;
 import com.abhinav.supplierfinance.exception.InvalidInvoiceException;
 import com.abhinav.supplierfinance.exception.InvoiceAlreadyExistsException;
 import com.abhinav.supplierfinance.exception.InvoiceNotExistsException;
-import com.abhinav.supplierfinance.rest.InvoiceController;
 import com.abhinav.supplierfinance.service.InvoiceService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
