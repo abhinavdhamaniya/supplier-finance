@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -34,8 +36,8 @@ public class InvoiceController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Invoice> getInvoiceById(@PathVariable String id) {
-        return ResponseEntity.ok(service.getInvoiceById(id));
+    public ResponseEntity<List<Invoice>> getInvoiceById(@PathVariable String id) {
+        return ResponseEntity.ok(Collections.singletonList(service.getInvoiceById(id)));
     }
 
     @GetMapping("/supplierCode/{supplierCode}")

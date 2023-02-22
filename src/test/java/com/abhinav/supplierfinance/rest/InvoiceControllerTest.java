@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -63,10 +64,10 @@ public class InvoiceControllerTest {
         invoice.setId(id);
         when(service.getInvoiceById(id)).thenReturn(invoice);
         // When
-        ResponseEntity<Invoice> result = controller.getInvoiceById(id);
+        ResponseEntity<List<Invoice>> result = controller.getInvoiceById(id);
         // Then
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(result.getBody().getId()).isEqualTo(id);
+        assertThat(Objects.requireNonNull(result.getBody()).get(0).getId()).isEqualTo(id);
     }
 
     @Test
