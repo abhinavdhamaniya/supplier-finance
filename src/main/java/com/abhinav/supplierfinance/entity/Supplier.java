@@ -32,6 +32,18 @@ public class Supplier {
     @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "Address can only contain alphanumeric characters")
     private String address;
 
+    @NotNull(message = "Country is required")
+    private String country;
+
+    @NotNull(message = "State is required")
+    private String state;
+
+    @NotNull(message = "City is required")
+    private String city;
+
+    @NotNull(message = "Province is required")
+    private String province;
+
     @NotNull(message = "Email is required")
     @Email(message = "Invalid email address")
     private String email;
