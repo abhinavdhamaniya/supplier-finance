@@ -7,7 +7,10 @@ import com.abhinav.supplierfinance.exception.InvoiceNotExistsException;
 import com.abhinav.supplierfinance.repository.InvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,6 +35,19 @@ public class InvoiceService {
         } else if (supplierService.getSupplierByCode(invoice.getSupplierCode()) == null) {
             throw new InvalidInvoiceException("Invalid supplier code");
         }
+        return repository.save(invoice);
+    }
+
+    public Invoice uploadInvoiceFile(String invoiceId, MultipartFile invoiceFile) throws InvoiceNotExistsException, IOException {
+        Invoice invoice = getInvoiceById(invoiceId);
+        if (getInvoiceById(invoice.getId()) == null) {
+            throw new InvoiceNotExistsException("Invoice with id: " + invoice.getId() + " does not exist!");
+        }
+
+        File file = new File(System.getProperty("java.io.tmpdir")+"/temp");
+        invoiceFile.transferTo(file);
+
+        invoice.setInvoiceFile(file);
         return repository.save(invoice);
     }
 
@@ -60,7 +76,7 @@ public class InvoiceService {
     public Invoice updateInvoiceStatus(String id, String status) throws InvoiceNotExistsException {
         Invoice invoice = getInvoiceById(id);
         if (invoice == null) {
-            throw new InvoiceNotExistsException("Invoice with id:" + id + "does not exist!");
+            throw new InvoiceNotExistsException("Invoice with id: " + id + " does not exist!");
         }
         invoice.setStatus(status);
         return repository.save(invoice);

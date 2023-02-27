@@ -9,10 +9,14 @@ import com.abhinav.supplierfinance.exception.InvoiceNotExistsException;
 import com.abhinav.supplierfinance.service.ClientService;
 import com.abhinav.supplierfinance.service.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -53,5 +57,10 @@ public class InvoiceController {
     @GetMapping("/update/{id}")
     public ResponseEntity<Invoice> updateInvoiceStatus(@PathVariable String id, @RequestParam String status) throws InvoiceNotExistsException {
         return ResponseEntity.ok(service.updateInvoiceStatus(id, status));
+    }
+
+    @PostMapping(value = "/upload-invoice/{invoiceId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Invoice> uploadInvoiceFile(@PathVariable String invoiceId, @RequestParam("invoiceFile") MultipartFile invoiceFile) throws InvoiceNotExistsException, IOException {
+        return ResponseEntity.ok(service.uploadInvoiceFile(invoiceId, invoiceFile));
     }
 }
