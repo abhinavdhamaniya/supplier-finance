@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class SupplierService {
@@ -20,7 +19,7 @@ public class SupplierService {
         if (getSupplierByCode(supplier.getSupplierCode()) != null) {
             throw new SupplierAlreadyExistsException("Supplier is already registered!");
         }
-        return obfuscatePassword(repository.save(supplier));
+        return repository.save(supplier);
     }
 
     public Boolean loginSupplier(SupplierLogin loginDetails) {
@@ -30,19 +29,10 @@ public class SupplierService {
     }
 
     public List<Supplier> getAllSuppliers() {
-        return repository.findAll()
-                .stream()
-                .map(this::obfuscatePassword)
-                .collect(Collectors.toList());
+        return repository.findAll();
     }
 
     public Supplier getSupplierByCode(String code) {
-        return obfuscatePassword(repository.findById(code).orElse(null));
-    }
-
-    private Supplier obfuscatePassword(Supplier supplier) {
-        if (supplier == null) return null;
-        supplier.setPassword("*****");
-        return supplier;
+        return repository.findById(code).orElse(null);
     }
 }
