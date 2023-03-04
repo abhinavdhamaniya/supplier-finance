@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
 import java.io.File;
 
@@ -35,5 +36,6 @@ public class Invoice {
 
     private String status = "AWAITING";
 
-    private File invoiceFile;
+    @Lob
+    private byte[] invoiceFileContent;
 }

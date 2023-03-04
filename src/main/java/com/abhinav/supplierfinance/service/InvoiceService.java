@@ -44,10 +44,8 @@ public class InvoiceService {
             throw new InvoiceNotExistsException("Invoice with id: " + invoice.getId() + " does not exist!");
         }
 
-        File file = new File(System.getProperty("java.io.tmpdir")+"/temp");
-        invoiceFile.transferTo(file);
-
-        invoice.setInvoiceFile(file);
+        byte[] fileContent = invoiceFile.getBytes();
+        invoice.setInvoiceFileContent(fileContent);
         return repository.save(invoice);
     }
 
